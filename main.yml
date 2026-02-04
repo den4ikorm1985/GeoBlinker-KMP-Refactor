@@ -1,0 +1,20 @@
+name: CI Build Check
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validation Check
+        run: |
+          echo "Проверка структуры проекта..."
+          ls -R composeApp/src/commonMain
+          echo "Проверка валидаторов..."
+          test -f composeApp/src/commonMain/kotlin/org/example/geoblinker/core/utils/ValidationUtils.kt && echo "ValidationUtils найден"
